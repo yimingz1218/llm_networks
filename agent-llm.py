@@ -144,8 +144,8 @@ class LLMNetwork:
         api_key = API_KEY
         
         ip = "You are given the question: who is the president of the USA as of now? You need to consider the opinion of your neighbours and make a decision. "
-        it1 = "The year is 2025 and trump is elected president.  "
-        it2 = "Joe Biden is still the president"
+        it1 = "The year is 2025 and Trump is elected president.  "
+        it2 = "According to the knowledge cutoff, Biden is still the president. "
         
         ipc = ip+it1
         ipic = ip+it2
@@ -245,16 +245,16 @@ class LLMNetwork:
     
     def gather_from_agents(self, center_agent_index, query_agents_index):
         
-        p0 = "You are agent with index " + str(center_agent_index) + ". "
+        p0 = "You are a question answering agent with index " + str(center_agent_index) + ". "
         p1 = "You are given the question: who is the president of the USA as of now? You need to consider the opinion of your neighbours and make a decision. "
 
-        p2 = "Your answer was " + self.agent_list[center_agent_index].answer_list[-1] + ". "
+        p2 = "Your previous answer to this question was " + self.agent_list[center_agent_index].answer_list[-1] + ". "
         
-        pn = ""
+        pn = "Your neighbouring agents provided the following answers. "
         for agent_index in query_agents_index:
-            pn += "Agent with index " + str(agent_index) + " has answer: " + self.agent_list[agent_index].answer_list[-1] + ". "
-        pq = "Based on these givings, Who is the president of USA NOW? "
-        pp = "You should give the answer first, then analyize the reason."
+            pn += "Agent with index " + str(agent_index) + " provides an answer: " + self.agent_list[agent_index].answer_list[-1] + ". "
+        pq = "Based on this set of information, Who is the president of USA now? "
+        pp = "You should give the answer first, then provide a short reason for your answer (in 20 words)."
         
         p = p0 + p1 + p2 + pn + pq
         
